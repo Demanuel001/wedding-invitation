@@ -17,14 +17,11 @@ const SlideshowPage: React.FC = () => {
     <div className="relative h-screen">
       <ImageSlideshow images={weddingData.images} verses={weddingData.verses} />
 
-      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black to-transparent z-10">
-        <div className="text-center text-white">
-          <h2 className="text-2xl font-light mb-1">
+      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-white to-transparent z-10">
+        <div className="text-right text-blue-800">
+          <h2 className="absolute bottom-32 text-2xl font-medium mb-2 right-6">
             {weddingData.couple.partner1} & {weddingData.couple.partner2}
           </h2>
-          <p className="text-lg">
-            {weddingData.couple.date} • {weddingData.couple.time}
-          </p>
         </div>
       </div>
 

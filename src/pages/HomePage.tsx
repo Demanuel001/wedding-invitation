@@ -28,7 +28,7 @@ const HomePage: React.FC = () => {
           <div className="text-center">
             <div className="mb-6 flex justify-center">
               <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                <Heart className="w-8 h-8 text-blue-500 group-hover:text-blue-600 transition-colors" />
+                <Heart className="w-8 h-8 text-blue-500 group-hover:text-serenity transition-colors" />
               </div>
             </div>
 
