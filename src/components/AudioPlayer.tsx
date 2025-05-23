@@ -42,7 +42,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
 
       <button
         onClick={togglePlayback}
-        className="p-3 rounded-full bg-white shadow-md hover:shadow-lg transition-all duration-300"
+        className="p-3 rounded-full bg-white bg-opacity-40 text-white hover:bg-opacity-90 transition-all focus:outline-none z-10"
         title={isPlaying ? 'Parar música' : 'Tocar música'}
       >
         {isPlaying
