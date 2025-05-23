@@ -4,6 +4,8 @@ export default {
   theme: {
     extend: {
       colors: {
+        serenity: '#92A8D1',
+        white: '#FFF',
         blue: {
           50: '#f0f4fa',
           100: '#d9e5f5',
