@@ -10,11 +10,21 @@ export interface CoupleInfo {
   };
 }
 
-export interface GiftItem {
+export interface GiftCategory {
+  id: string;
   name: string;
-  price: string;
+  level: string;
+}
+
+export interface GiftItem {
+  id: string;
+  name: string;
   store: string;
   url: string;
+  image_url: string;
+  category: GiftCategory;
+  reserved?: boolean;
+  guest_name?: string;
 }
 
 export interface ContactInfo {
