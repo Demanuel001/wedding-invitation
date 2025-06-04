@@ -28,3 +28,4 @@ public
 src/data/weddingData.ts
 .vercel
 package-lock.json
+.help.md
