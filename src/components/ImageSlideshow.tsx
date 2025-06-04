@@ -96,7 +96,7 @@ const ImageSlideshow: React.FC<Props> = ({
               transform: idx === currentIndex ? 'scale(1.1)' : 'scale(1)',
             }}
           >
-            <div className="absolute inset-0 bg-black bg-opacity-40" />
+            <div className="absolute inset-0 bg-black bg-opacity-10" />
           </div>
         </div>
       ))}
