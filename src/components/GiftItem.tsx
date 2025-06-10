@@ -77,9 +77,6 @@ const GiftItem: React.FC<GiftItemProps> = ({ gift, onReserve }) => {
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
               <h3 className="font-medium text-blue-800">{gift.name}</h3>
-              <span className={`px-2 py-0.5 rounded-full text-xs ${getCategoryColor(gift.category.level)}`}>
-                {gift.category.name}
-              </span>
             </div>
 
             <div className="flex items-center mt-2 text-gray-600 text-sm">
