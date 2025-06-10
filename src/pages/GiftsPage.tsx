@@ -1,39 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Heart } from 'lucide-react';
 import GiftItem from '../components/GiftItem';
 import { GiftItem as GiftItemType, GiftCategory } from '../types';
 import { supabase } from '../lib/supabase';
 
+const levelOrder = ['diamond', 'gold', 'silver', 'bronze'];
+
 const GiftsPage: React.FC = () => {
   const [gifts, setGifts] = useState<GiftItemType[]>([]);
   const [categories, setCategories] = useState<GiftCategory[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Define the correct order of levels
-  const levelOrder = ['diamond', 'gold', 'silver', 'bronze'];
-
-  useEffect(() => {
-    fetchGiftsAndCategories();
-  }, []);
-
-  const fetchGiftsAndCategories = async () => {
+  const fetchGiftsAndCategories = useCallback(async () => {
     try {
-      // Fetch categories first
       const { data: categoriesData, error: categoriesError } = await supabase
         .from('gift_categories')
         .select('*');
 
       if (categoriesError) throw categoriesError;
 
-      // Sort categories according to the desired order
       const sortedCategories = categoriesData.sort((a, b) =>
         levelOrder.indexOf(a.level) - levelOrder.indexOf(b.level)
       );
 
       setCategories(sortedCategories);
 
-      // Then fetch gifts with their categories
       const { data: giftsData, error: giftsError } = await supabase
         .from('gifts')
         .select(`
@@ -52,11 +44,15 @@ const GiftsPage: React.FC = () => {
 
       setGifts(formattedGifts);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('Erro ao buscar dados:', error);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchGiftsAndCategories();
+  }, [fetchGiftsAndCategories]);
 
   const handleReserve = async (giftId: string, guestName: string) => {
     try {
@@ -66,10 +62,9 @@ const GiftsPage: React.FC = () => {
 
       if (error) throw error;
 
-      // Refresh gifts list
       await fetchGiftsAndCategories();
     } catch (error) {
-      console.error('Error reserving gift:', error);
+      console.error('Erro ao reservar presente:', error);
     }
   };
 
@@ -87,15 +82,14 @@ const GiftsPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white p-6">
-      <div className="max-w-lg mx-auto">
-        <Link
-          to="/"
-          className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors mb-6"
-        >
-          <ArrowLeft className="w-4 h-4 mr-1" />
-          <span>Voltar</span>
-        </Link>
+      <Link
+        to="/"
+        className="fixed top-4 left-4 p-2 rounded-full bg-white bg-opacity-30 text-blue-600 hover:bg-opacity-50 transition-all focus:outline-none shadow-md z-50"
+      >
+        <ArrowLeft className="w-6 h-6" />
+      </Link>
 
+      <div className="max-w-lg mx-auto">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center mb-2">
             <div className="w-8 h-[1px] bg-blue-200"></div>
@@ -103,7 +97,9 @@ const GiftsPage: React.FC = () => {
             <div className="w-8 h-[1px] bg-blue-200"></div>
           </div>
           <h1 className="text-2xl font-light text-blue-800 mb-1">Lista de Presentes</h1>
-          <p className="text-sm text-gray-600">Sua presença é o presente mais especial, mas se desejar nos presentear, aqui estão algumas sugestões</p>
+          <p className="text-sm text-gray-600">
+            Sua presença é o presente mais especial, mas se desejar nos presentear, aqui estão algumas sugestões.
+          </p>
         </div>
 
         <div className="space-y-8">
@@ -114,8 +110,9 @@ const GiftsPage: React.FC = () => {
             return (
               <div key={category.id} className="space-y-4">
                 <h2 className="text-xl font-light text-blue-800 border-b border-blue-100 pb-2">
-                  Presentes {category.name}
+                  Presentes nível {category.name}
                 </h2>
+
                 {categoryGifts.map((gift) => (
                   <GiftItem
                     key={gift.id}
