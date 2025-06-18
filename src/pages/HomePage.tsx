@@ -1,5 +1,6 @@
 import React from 'react';
 import ActionButtons from '../components/ActionButtons';
+import CountdownTimer from '../components/CountdownTimer';
 import { weddingData } from '../data/weddingData';
 import { Heart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -49,6 +50,11 @@ const HomePage: React.FC = () => {
             <p className="text-sm text-blue-400 group-hover:text-blue-500 transition-colors">
               Clique para ver nosso convite especial
             </p>
+
+             <CountdownTimer
+              targetDate={weddingData.couple.date}
+              targetTime={weddingData.couple.timerCount}
+            />
           </div>
         </div>
 
